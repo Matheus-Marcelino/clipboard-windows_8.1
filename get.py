@@ -2,7 +2,7 @@ from clipboard import paste
 
 lista_ctrl_c = []
 
-def get_ctrl_c() -> (list|str):
+def get_clipboard() -> (list|str):
     global lista_ctrl_c
 
     excecoes = ['\n', '\t', '\r', "\'", '\"','\a', '\b','\\']
