@@ -1,4 +1,5 @@
 from get import get_ctrl_c
+#from tela import Interface
 from keyboard import add_hotkey, wait
 
 
