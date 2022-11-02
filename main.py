@@ -1,9 +1,10 @@
-import keyboard
+from keyboard import add_hotkey, wait
+from get import get_ctrl
 
 
 def init():
-    print('uepaaaa')
+    print(get_ctrl())
 
 
-keyboard.add_hotkey('win + v', init)
-keyboard.wait()
+add_hotkey('win + v', init)
+wait()
