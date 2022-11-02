@@ -6,16 +6,17 @@ def get_ctrl() -> (list|str):
     global lista_ctrl_c
 
     excecoes = ['\n', '\t', '\r', "\'", '\"','\a', '\b','\\']
-    cola = paste()
-    for c in excecoes:
-        if c in cola:
-            if c == '\n':
-                cola = cola.replace(c, ' ')
-                continue
-            cola = cola.replace(c, '')
+    ctrl_c = paste()
     
-    if not cola in lista_ctrl_c:
-        lista_ctrl_c.append(cola)
+    for c in excecoes:
+        if c in ctrl_c:
+            if c == '\n':
+                ctrl_c = ctrl_c.replace(c, ' ')
+                continue
+            ctrl_c = ctrl_c.replace(c, '')
+    
+    if not ctrl_c in lista_ctrl_c:
+        lista_ctrl_c.append(ctrl_c)
     
     if lista_ctrl_c == None:
         pass
