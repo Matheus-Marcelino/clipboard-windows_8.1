@@ -3,18 +3,17 @@ from keyboard import add_hotkey, wait
 
 key = True
 
-
-def ativador() -> None:
+def show_window() -> None:
     global key
-    
+
     if key is True:
-        add_hotkey('win + v', minimizar)
         key = False
+        add_hotkey('win + v', minimizar)
     else:
-        add_hotkey('win + v', maximizar)
         key = True
-    print(key)
-    
+        add_hotkey('win + v', maximizar)
+    wait()
+
 
 def disable_event() -> None:
     pass
@@ -30,7 +29,6 @@ WINDOW.wm_attributes('-topmost', True)
 WINDOW.wm_maxsize(600, 600)
 WINDOW['bg'] = "black"
 
-
 def maximizar() -> None:
     WINDOW.state(newstate='normal')
 
@@ -38,7 +36,6 @@ def maximizar() -> None:
 def minimizar() -> None:
     WINDOW.state(newstate='iconic')
 
-    
-ativador()
-tk.Text()
+
+show_window()
 WINDOW.mainloop()
