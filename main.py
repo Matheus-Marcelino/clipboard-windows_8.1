@@ -1,9 +1,13 @@
+from time import sleep
 from get import get_ctrl_c
 from keyboard import add_hotkey, wait
 
 def init():
-    print(get_ctrl_c())
+    get_ctrl_c()
+    return True
 
-add_hotkey('win + v', init)
-add_hotkey('win + shift', init)
-wait()
+while True:
+    a = add_hotkey('win + v', init)
+    print(a)
+    sleep(1)
+    
