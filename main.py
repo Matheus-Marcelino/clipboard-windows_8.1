@@ -16,9 +16,17 @@ def config_window_state() -> None:
 
 
 def card() -> None:
-    card = tk.Text(WINDOW, height=5, width=40, fg='white', bg='#3c3c3c')
-    card.insert('end', chars=get_ctrl_c())
-    card.grid(column=0, row=0, padx=WIDTH/10, pady=5)
+    def create_card() -> None:
+        card = tk.Text(WINDOW, width=40, height=9, autoseparators=True)
+        card.insert(index='end', chars=copy)
+        card.grid(column=0, row=0, padx=WIDTH/10, pady=2)
+
+    copy, tamanho = get_ctrl_c(), len(get_ctrl_c())
+    ident = 0
+    if tamanho != ident:
+        create_card()
+        ident = tamanho
+    WINDOW.after(5000, card)
 
 
 def new_event_delete() -> None:
@@ -28,22 +36,22 @@ def new_event_delete() -> None:
 #def move_window(event: any) -> None:
 #    WINDOW.geometry('+{0}+{1}'.format(event.x_root, event.y_root))
 
-
 WINDOW = tk.Tk()
-WINDOW.resizable(width=False, height=False)
+WINDOW['bg'] = "#1e1e1e"
 WINDOW.title("Area de Transferência")
-WINDOW.protocol("WM_DELETE_WINDOW", new_event_delete)
-WINDOW.state(newstate='iconic')
-FRM_WIDTH = WINDOW.winfo_rootx() - WINDOW.winfo_x()
-TITLEBAR_HEIGHT = WINDOW.winfo_rooty() - WINDOW.winfo_y()
+WINDOW.resizable(width=False, height=False)
+#WINDOW.protocol("WM_DELETE_WINDOW", new_event_delete)
+WINDOW.wm_attributes('-topmost' , True)
+#WINDOW.state(newstate='iconic')
+
 HEIGHT = 500
 WIDTH = 400
-X = WINDOW.winfo_screenwidth() // 2 - (WIDTH + 2 * FRM_WIDTH) // 2
-Y = WINDOW.winfo_screenheight() // 2 - (HEIGHT + TITLEBAR_HEIGHT + FRM_WIDTH) // 2
+X = WINDOW.winfo_screenwidth() // 2 - (WIDTH + 2) // 2
+Y = WINDOW.winfo_screenheight() // 2 - HEIGHT // 2
 WINDOW.geometry(f'{WIDTH}x{HEIGHT}+{X}+{Y}')
-WINDOW.wm_attributes('-topmost' , True)
+
 #WINDOW.wm_attributes('-toolwindow', True)
-WINDOW['bg'] = "#1e1e1e"
+
 
 """
 title_bar = tk.LabelFrame(WINDOW, bg='#1e1e1e', font='Arial 12', relief='raised',
@@ -53,9 +61,7 @@ title_bar.pack(expand=0, fill='x')
 title_bar.bind('<B1-Motion>', move_window)
 """
 
-
 tk.Label(text=card())
-#WINDOW.after(2, card)
 
 Thread(target=config_window_state).start()
 WINDOW.mainloop()
