@@ -15,6 +15,10 @@ def config_window_state() -> None:
     wait()
 
 
+def card() -> None:
+    
+
+
 def disable_event() -> None:
     pass
 
@@ -25,8 +29,8 @@ def display() -> None:
     card.pack()
     
 
-def move_window(event: any) -> None:
-    WINDOW.geometry('+{0}+{1}'.format(event.x_root, event.y_root))
+#def move_window(event: any) -> None:
+#    WINDOW.geometry('+{0}+{1}'.format(event.x_root, event.y_root))
 
   
 WINDOW = tk.Tk()
@@ -41,19 +45,17 @@ Y = WINDOW.winfo_screenheight() // 2 - (HEIGHT + TITLEBAR_HEIGHT + FRM_WIDTH) //
 WINDOW.geometry(f'{WIDTH}x{HEIGHT}+{X}+{Y}')
 WINDOW.wm_attributes('-topmost' , True)
 #WINDOW.wm_attributes('-toolwindow', True)
-
 #WINDOW.protocol("WM_DELETE_WINDOW", disable_event)
 #WINDOW.state(newstate='iconic')
-#WINDOW.wm_maxsize(600, 600)
-#WINDOW['bg'] = "black"
+WINDOW['bg'] = "#1e1e1e"
 
-WINDOW.overrideredirect(True)
+"""
 title_bar = tk.LabelFrame(WINDOW, bg='#1e1e1e', font='Arial 12', relief='raised',
-                          height=25, text='Area de Transferência', fg='black',
+                          height=25, text='Area de Transferência',
                           labelanchor='n')
 title_bar.pack(expand=0, fill='x')
 title_bar.bind('<B1-Motion>', move_window)
-
+"""
 
 
 tk.Label(text=display())

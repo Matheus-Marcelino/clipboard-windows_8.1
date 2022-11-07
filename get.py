@@ -2,6 +2,7 @@ from clipboard import paste
 
 lista_ctrl_c = []
 
+
 def get_ctrl_c() -> (list | None):
     global lista_ctrl_c
 
@@ -22,3 +23,14 @@ def get_ctrl_c() -> (list | None):
         pass
     else:
         return lista_ctrl_c
+
+
+def delete() -> None:
+    from shutil import rmtree
+    from os import path
+    
+    if path.exists('__pycache__'):
+        rmtree('__pycache__')
+
+
+delete()
