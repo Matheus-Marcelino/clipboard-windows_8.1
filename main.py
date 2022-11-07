@@ -16,13 +16,13 @@ def config_window_state() -> None:
 
 
 def card() -> None:
-    pass
-
-
-def disable_event() -> None:
-    card = tk.Text(WINDOW, height=5, width=40, fg='white', bg='black')
+    card = tk.Text(WINDOW, height=5, width=40, fg='white', bg='#3c3c3c')
     card.insert('end', chars=get_ctrl_c())
     card.grid(column=0, row=0, padx=WIDTH/10, pady=5)
+
+
+def new_event_delete() -> None:
+    WINDOW.state(newstate='iconic')
 
 
 #def move_window(event: any) -> None:
@@ -32,7 +32,7 @@ def disable_event() -> None:
 WINDOW = tk.Tk()
 WINDOW.resizable(width=False, height=False)
 WINDOW.title("Area de Transferência")
-WINDOW.protocol("WM_DELETE_WINDOW", disable_event)
+WINDOW.protocol("WM_DELETE_WINDOW", new_event_delete)
 WINDOW.state(newstate='iconic')
 FRM_WIDTH = WINDOW.winfo_rootx() - WINDOW.winfo_x()
 TITLEBAR_HEIGHT = WINDOW.winfo_rooty() - WINDOW.winfo_y()
