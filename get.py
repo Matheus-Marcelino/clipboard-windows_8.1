@@ -10,7 +10,7 @@ def get_ctrl_c() -> (list | None):
 
     ctrl_c = paste()
     
-    if not ctrl_c in lista_ctrl_c:
+    if not ctrl_c in lista_ctrl_c and ctrl_c != '':
         lista_ctrl_c.append(ctrl_c)
 
     if lista_ctrl_c == None:
