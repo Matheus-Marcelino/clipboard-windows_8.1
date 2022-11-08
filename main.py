@@ -17,15 +17,23 @@ def config_window_state() -> None:
 
 def card() -> None:
     def create_card() -> None:
-        card = tk.Text(WINDOW, width=40, height=9, autoseparators=True)
-        card.insert(index='end', chars=copy)
-        card.grid(column=0, row=0, padx=WIDTH/10, pady=2)
+        linha = 0
+        
+        for c in copy:
+            card = tk.Text(WINDOW, width=40, height=9)
+            card.grid(column=0, row=linha, padx=WIDTH/10, pady=3)
+            card.insert(index='end', chars=c)
+            linha += 1
+            WINDOW.update_idletasks()
 
     copy, tamanho = get_ctrl_c(), len(get_ctrl_c())
     ident = 0
+    print(copy)
+
     if tamanho != ident:
         create_card()
-        ident = tamanho
+        ident += 1
+
     WINDOW.after(5000, card)
 
 
@@ -42,7 +50,9 @@ WINDOW.title("Area de Transferência")
 WINDOW.resizable(width=False, height=False)
 #WINDOW.protocol("WM_DELETE_WINDOW", new_event_delete)
 WINDOW.wm_attributes('-topmost' , True)
+WINDOW.wm_attributes('-toolwindow' , True)
 #WINDOW.state(newstate='iconic')
+WINDOW.rowconfigure(0, weight=0)
 
 HEIGHT = 500
 WIDTH = 400
@@ -64,4 +74,5 @@ title_bar.bind('<B1-Motion>', move_window)
 tk.Label(text=card())
 
 Thread(target=config_window_state).start()
+WINDOW.update()
 WINDOW.mainloop()
