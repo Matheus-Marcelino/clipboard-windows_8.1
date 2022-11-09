@@ -21,25 +21,24 @@ def config_window_state() -> None:
 
 def Card_func() -> None:
     global ident
-    
+
     def create_Card() -> None: 
         linha = 0
         for frase in copy:
-        
             card = tk.Text(frame_text, width=40, height=6, autoseparators=True)
             card.grid(column=0, row=linha, padx=WIDTH/10, pady=3)
             card.insert(index='end', chars=frase)
             frame_text.update_idletasks()
             linha += 1
         canvas['scrollregion'] = (0, 0, frame_text.winfo_reqheight(), frame_text.winfo_reqheight())
-        
+
     print(get_ctrl_c())
     copy, tamanho = get_ctrl_c(), len(get_ctrl_c())
 
     if ident != tamanho:
         ident += 1
         create_Card()
-    
+
     frame_text.after(5000, Card_func)
 
 
