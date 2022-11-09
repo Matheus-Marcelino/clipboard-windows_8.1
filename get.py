@@ -22,5 +22,3 @@ def get_ctrl_c() -> (list | None):
 def delete() -> None:
     if path.exists('__pycache__'):
         rmtree('__pycache__')
-
-delete()

@@ -1,8 +1,9 @@
 import tkinter as tk
 import tkinter.ttk as ttk
-from get import get_ctrl_c
+from get import get_ctrl_c, delete
 from threading import Thread
 from keyboard import add_hotkey, wait
+delete()
 
 ident = 0  # variavel de controle para a criação de card
 
