@@ -1,8 +1,12 @@
 from os import path
 from shutil import rmtree
-from clipboard import paste
+from clipboard import paste, copy
 
 lista_ctrl_c = []
+
+
+def copy_ctrl_c(phrase: str) -> str:
+    copy(phrase)
 
 
 def get_ctrl_c() -> (list | None):

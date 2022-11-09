@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 from tkinter.ttk import  Scrollbar as ttk_scrollbar
-from get import get_ctrl_c, delete
+from get import get_ctrl_c, copy_ctrl_c, delete
 from threading import Thread
 from keyboard import add_hotkey, wait
 delete()
@@ -24,18 +24,23 @@ def Card_func() -> None:
     global ident
     
     def create_Card() -> None: 
+        def copiar() -> None:
+            copy_ctrl_c()
+        
         line_button = 1
-        for line, frase in enumerate(copy):
-            line - 1
+        line = 0
+        for frase in copy:
             card = tk.Text(frame_text, width=40, height=6, autoseparators=True, blockcursor=True, bg='#424242')
             card.grid(column=0, row=line, padx=WIDTH/17, pady=3)
             card.insert(index='end', chars=frase)
             card.configure(selectbackground=card.cget('bg'), inactiveselectbackground=card.cget('bg'), state='disabled')
-            tk.Button(frame_text, text='Copiar', fg='white', bg='#2d2d2d', anchor='n', width=45).grid(
-                column=0, row=line_button, sticky='s')
+            botao = tk.Button(frame_text, text='Copiar', fg='white', command=copiar, pady=1,
+                      bg='#2d2d2d', anchor='n', width=44).grid(column=0, row=line_button, sticky='s')
             frame_text.update_idletasks()
-            line_button += 1
-            canvas['scrollregion'] = (0,0,0, frame_text.winfo_reqheight())
+            line += 2
+            line_button += 2
+                
+        canvas['scrollregion'] = (0,0,0, frame_text.winfo_reqheight())
 
     copy, tamanho = get_ctrl_c(), len(get_ctrl_c())
 
