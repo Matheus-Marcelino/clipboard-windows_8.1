@@ -1,5 +1,6 @@
 import tkinter as tk
-import tkinter.ttk as ttk
+from tkinter import messagebox
+from tkinter.ttk import  Scrollbar as ttk_scrollbar
 from get import get_ctrl_c, delete
 from threading import Thread
 from keyboard import add_hotkey, wait
@@ -21,25 +22,28 @@ def config_window_state() -> None:
 
 def Card_func() -> None:
     global ident
-
+    
     def create_Card() -> None: 
-        linha = 0
-        for frase in copy:
-            card = tk.Text(frame_text, width=40, height=6, autoseparators=True)
-            card.grid(column=0, row=linha, padx=WIDTH/10, pady=3)
+        line_button = 1
+        for line, frase in enumerate(copy):
+            line - 1
+            card = tk.Text(frame_text, width=40, height=6, autoseparators=True, blockcursor=True, bg='#424242')
+            card.grid(column=0, row=line, padx=WIDTH/17, pady=3)
             card.insert(index='end', chars=frase)
+            card.configure(selectbackground=card.cget('bg'), inactiveselectbackground=card.cget('bg'), state='disabled')
+            tk.Button(frame_text, text='Copiar', fg='white', bg='#2d2d2d', anchor='n', width=45).grid(
+                column=0, row=line_button, sticky='s')
             frame_text.update_idletasks()
-            linha += 1
-        canvas['scrollregion'] = (0, 0, frame_text.winfo_reqheight(), frame_text.winfo_reqheight())
+            line_button += 1
+            canvas['scrollregion'] = (0,0,0, frame_text.winfo_reqheight())
 
-    print(get_ctrl_c())
     copy, tamanho = get_ctrl_c(), len(get_ctrl_c())
 
     if ident != tamanho:
         ident += 1
         create_Card()
-
-    frame_text.after(5000, Card_func)
+    
+    frame_text.after(2000, Card_func)
 
 
 def new_event_delete() -> None:
@@ -47,12 +51,12 @@ def new_event_delete() -> None:
 
 
 WINDOW = tk.Tk()
-WINDOW['bg'] = "#1e1e1e"
+WINDOW['bg'] = '#1e1e1e'
+WINDOW.config(borderwidth=0)
 WINDOW.title("Area de Transferência -- alpha")
 WINDOW.resizable(width=False, height=False)
 WINDOW.wm_attributes('-topmost' , True)
-WINDOW.wm_attributes('-toolwindow' , True)
-#WINDOW.protocol("WM_DELETE_WINDOW", new_event_delete)
+WINDOW.protocol("WM_DELETE_WINDOW", new_event_delete)
 #WINDOW.state(newstate='iconic')
 
 HEIGHT = int(500)
@@ -61,20 +65,21 @@ X = WINDOW.winfo_screenwidth() // 2 - (WIDTH + 2) // 2
 Y = WINDOW.winfo_screenheight() // 2 - HEIGHT // 2
 WINDOW.geometry(f'{WIDTH}x{HEIGHT}+{X}+{Y}')
 
-canvas = tk.Canvas(WINDOW, bg="blue")
-canvas.grid(row=0, column=0, sticky=('n', 'w', 'e', 's'))
+canvas = tk.Canvas(WINDOW, bg='#1e1e1e')
+canvas.grid(row=0, column=0, sticky='nwes')
 
-scrool = ttk.Scrollbar(WINDOW, orient="vertical", command=canvas.yview)
-scrool.grid(row=0, column=1, sticky=('n', 's'))
-canvas.configure(yscrollcommand=scrool.set)
+scroll = ttk_scrollbar(WINDOW, orient="vertical", command=canvas.yview)
+scroll.grid(row=0, column=1, sticky='ns')
+canvas.configure(yscrollcommand=scroll.set)
 
-frame_text = tk.Frame(canvas, bg="grey")
-canvas.create_window((0, 0), window=frame_text, anchor='nw', height=HEIGHT)
+frame_text = tk.Frame(canvas, bg='#1e1e1e')
+canvas.create_window((0, 0), window=frame_text, anchor='nw')
 
-WINDOW.grid_columnconfigure(0, weight=1)
 WINDOW.grid_rowconfigure(0, weight=1)
+WINDOW.grid_columnconfigure(0, weight=1)
 
 Card_func()
+canvas['scrollregion'] = (0,0,0, 500)
 
 Thread(target=config_window_state).start()
 WINDOW.mainloop()
