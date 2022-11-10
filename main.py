@@ -20,13 +20,13 @@ def config_window_state() -> None:
     wait()
 
 
-def Card_func() -> None:
+def element_func() -> None:
     global ident
 
     def limpar() -> None:
         global ident
+
         copy.clear()
-        print(copy)
         ident = 0
         for widget in frame_main.winfo_children():
             widget.destroy()
@@ -65,7 +65,7 @@ def Card_func() -> None:
         ident += 1
         create_Card()
 
-    frame_main.after(2000, Card_func)
+    frame_main.after(2000, element_func)
 
 
 def new_event_delete() -> None:
@@ -100,7 +100,7 @@ canvas.create_window((0, 0), window=frame_main, anchor='nw')
 WINDOW.grid_rowconfigure(0, weight=1)
 WINDOW.grid_columnconfigure(0, weight=1)
 
-Card_func()
+element_func()
 canvas['scrollregion'] = (0,0,0, 500)
 
 Thread(target=config_window_state).start()
