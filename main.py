@@ -29,21 +29,20 @@ def element_func() -> None:
             widget.destroy()
 
     def create_Card() -> None: 
-        def copiar(marcador: int) -> None:
-            copy_ctrl_c(copy[marcador])
+        global line, line_button
 
-        def botao_copy(marcador: int) -> None:
-            botao = Button(frame_main, text='Copiar', fg='white', command = lambda: copiar(marcador), pady=1,
-                      bg='#2d2d2d', anchor='n', width=44)    
-            botao.grid(column=0, row=line_button, sticky='s')
+        def copiar(marcador) -> None:
+            copy_ctrl_c(marcador)
 
-        line, line_button = 1, 2
+        def botao_copy(marcador) -> None:
+            Button(frame_main, text='Copiar', background='#2e2e2e', fg='white', command = lambda: copiar(marcador),
+                   pady=1, bg='#2d2d2d', anchor='n', width=44).grid(column=0, row=line_button, sticky='s')
 
-        for marcador in range(0, len(copy)):
+        for _ in range(1):
             card = Text(frame_main, width=40, height=6, autoseparators=True, blockcursor=True, bg='#424242', fg='white')
             card.grid(column=0, row=line, padx=WIDTH/17, pady=3)
-            card.insert(index='end', chars=copy[marcador])
-            botao_copy(marcador)
+            card.insert(index='end', chars=copy[-1])
+            botao_copy(copy[-1])
             card.configure(selectbackground=card.cget('bg'), inactiveselectbackground=card.cget('bg'), state='disabled')
             frame_main.update_idletasks()
             line += 2
@@ -53,9 +52,8 @@ def element_func() -> None:
 
     copy, tamanho = get_ctrl_c(), len(get_ctrl_c())
     if len(copy) != 0:
-        botao_limpar = Button(frame_main, text='Limpar', fg='white', command= limpar,
-                        bg='#2d2d2d', anchor='n', width=44)    
-        botao_limpar.grid(column=0, row=0, sticky='n', pady=6)
+        Button(frame_main, text='Limpar', fg='white', command= limpar,
+               bg='#2d2d2d', anchor='n', width=44).grid(column=0, row=0, sticky='n', pady=6)
 
     if ident != tamanho:
         ident += 1
@@ -71,23 +69,22 @@ def new_event_delete() -> None:
 try:
     WINDOW = Tk()
     WINDOW['bg'] = '#1e1e1e'
+    HEIGHT = int(500)
+    WIDTH = int(400)
+    X = WINDOW.winfo_screenwidth() // 2 - (WIDTH + 2) // 2
+    Y = WINDOW.winfo_screenheight() // 2 - HEIGHT // 2
+    WINDOW.geometry(f'{WIDTH}x{HEIGHT}+{X}+{Y}')
     WINDOW.state(newstate='iconic')
-    WINDOW.config(borderwidth=0)
     WINDOW.title("Area de Transferência -- beta 1.0")
     WINDOW.resizable(width=False, height=False)
     WINDOW.wm_attributes('-topmost' , True)
     try:
         WINDOW.call('wm', 'iconphoto', WINDOW._w, PhotoImage(file='icon/transfer.png'))
     except TclError:
-        messagebox.showerror('Image Error', "A imagem 'transfer.png' não pode ser encontrada no\n"
+        messagebox.showerror('Image Not Found Error', "A imagem 'transfer.png' não pode ser encontrada no\n"
                              "Local 'icon/transfer.png' ")
         WINDOW.destroy()
     WINDOW.protocol("WM_DELETE_WINDOW", new_event_delete)
-    HEIGHT = int(500)
-    WIDTH = int(400)
-    X = WINDOW.winfo_screenwidth() // 2 - (WIDTH + 2) // 2
-    Y = WINDOW.winfo_screenheight() // 2 - HEIGHT // 2
-    WINDOW.geometry(f'{WIDTH}x{HEIGHT}+{X}+{Y}')
 
     canvas = Canvas(WINDOW, bg='#1e1e1e')
     canvas.grid(row=0, column=0, sticky='nwes')
@@ -101,7 +98,7 @@ try:
 
     WINDOW.grid_rowconfigure(0, weight=1)
 
-    ident = 0  # variavel de controle para a criação de card
+    ident, line, line_button = 0, 1, 2  # variavel de controle para a criação de card
     element_func()
     canvas['scrollregion'] = (0,0,0, 500)
 
