@@ -8,7 +8,7 @@ delete()
 
 def config_window_state() -> None:
     def state() -> None:
-        if WINDOW.state() == 'iconic':    
+        if WINDOW.state() == 'iconic':
             WINDOW.state(newstate='normal')
         elif WINDOW.state() == 'normal':
             WINDOW.state(newstate='iconic')
