@@ -75,30 +75,28 @@ def new_event_delete() -> None:
 WINDOW = tk.Tk()
 WINDOW['bg'] = '#1e1e1e'
 WINDOW.config(borderwidth=0)
-WINDOW.title("Area de Transferência -- alpha")
+WINDOW.title("Area de Transferência -- beta 1.0")
 WINDOW.resizable(width=False, height=False)
 WINDOW.wm_attributes('-topmost' , True)
 WINDOW.protocol("WM_DELETE_WINDOW", new_event_delete)
-#WINDOW.state(newstate='iconic')
-
+WINDOW.state(newstate='iconic')
 HEIGHT = int(500)
 WIDTH = int(400)
 X = WINDOW.winfo_screenwidth() // 2 - (WIDTH + 2) // 2
 Y = WINDOW.winfo_screenheight() // 2 - HEIGHT // 2
 WINDOW.geometry(f'{WIDTH}x{HEIGHT}+{X}+{Y}')
 
-canvas = tk.Canvas(WINDOW, bg='blue')
+canvas = tk.Canvas(WINDOW, bg='#1e1e1e')
 canvas.grid(row=0, column=0, sticky='nwes')
 
 scroll = ttk_scrollbar(WINDOW, orient="vertical", command=canvas.yview)
 scroll.grid(row=0, column=1, sticky='ns')
 canvas.configure(yscrollcommand=scroll.set)
 
-frame_main = tk.Frame(canvas, bg='grey')
+frame_main = tk.Frame(canvas, bg='#1e1e1e')
 canvas.create_window((0, 0), window=frame_main, anchor='nw')
 
 WINDOW.grid_rowconfigure(0, weight=1)
-WINDOW.grid_columnconfigure(0, weight=1)
 
 element_func()
 canvas['scrollregion'] = (0,0,0, 500)
