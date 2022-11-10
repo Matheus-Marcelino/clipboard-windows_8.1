@@ -104,9 +104,9 @@ try:
 
     WINDOW.grid_rowconfigure(0, weight=1)
 
-    message = Label(frame_main, text='Espeando você copiar algo :)', bg='#1e1e1e',
-                    fg='white', font="Bahnschrift 15")
-    message.grid(column=0, row=0, sticky='nwes')
+    message = Label(frame_main, text='Esperando você copiar algo :)', bg='#1e1e1e',
+                    fg='#2e2e2e', font="Bahnschrift 15")
+    message.grid(column=0, row=0, sticky='nwes', padx=WIDTH/7, pady=HEIGHT/2.2)
 
     ident, line, line_button = 0, 1, 2  # variavel de controle para a criação de card
     element_create()
