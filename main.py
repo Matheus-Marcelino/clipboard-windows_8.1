@@ -57,7 +57,6 @@ def element_func() -> None:
                         bg='#2d2d2d', anchor='n', width=44)    
         botao_limpar.grid(column=0, row=0, sticky='n', pady=6)
 
-    
     if ident != tamanho:
         ident += 1
         create_Card()
