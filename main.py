@@ -1,6 +1,5 @@
-import tkinter as tk
-from tkinter import messagebox
-from tkinter.ttk import  Scrollbar as ttk_scrollbar
+from tkinter import Tk, TclError, messagebox, Frame, Canvas, Button, Text, PhotoImage
+from tkinter.ttk import Scrollbar as ttk_scrollbar
 from get import get_ctrl_c, copy_ctrl_c, delete
 from threading import Thread
 from keyboard import add_hotkey, wait
@@ -34,14 +33,14 @@ def element_func() -> None:
             copy_ctrl_c(copy[marcador])
 
         def botao_copy(marcador: int) -> None:
-            botao = tk.Button(frame_main, text='Copiar', fg='white', command = lambda: copiar(marcador), pady=1,
+            botao = Button(frame_main, text='Copiar', fg='white', command = lambda: copiar(marcador), pady=1,
                       bg='#2d2d2d', anchor='n', width=44)    
             botao.grid(column=0, row=line_button, sticky='s')
 
         line, line_button = 1, 2
 
         for marcador in range(0, len(copy)):
-            card = tk.Text(frame_main, width=40, height=6, autoseparators=True, blockcursor=True, bg='#424242', fg='white')
+            card = Text(frame_main, width=40, height=6, autoseparators=True, blockcursor=True, bg='#424242', fg='white')
             card.grid(column=0, row=line, padx=WIDTH/17, pady=3)
             card.insert(index='end', chars=copy[marcador])
             botao_copy(marcador)
@@ -54,7 +53,7 @@ def element_func() -> None:
 
     copy, tamanho = get_ctrl_c(), len(get_ctrl_c())
 
-    botao_limpar = tk.Button(frame_main, text='Limpar', fg='white', command= limpar,
+    botao_limpar = Button(frame_main, text='Limpar', fg='white', command= limpar,
                       bg='#2d2d2d', anchor='n', width=44)    
     botao_limpar.grid(column=0, row=0, sticky='n', pady=6)
 
@@ -70,36 +69,44 @@ def new_event_delete() -> None:
     WINDOW.state(newstate='iconic')
 
 
-WINDOW = tk.Tk()
-WINDOW['bg'] = '#1e1e1e'
-WINDOW.config(borderwidth=0)
-WINDOW.title("Area de Transferência -- beta 1.0")
-WINDOW.resizable(width=False, height=False)
-WINDOW.wm_attributes('-topmost' , True)
-WINDOW.call('wm', 'iconphoto', WINDOW._w, tk.PhotoImage(file='icon/trasnfer.png'))
-WINDOW.protocol("WM_DELETE_WINDOW", new_event_delete)
-WINDOW.state(newstate='iconic')
-HEIGHT = int(500)
-WIDTH = int(400)
-X = WINDOW.winfo_screenwidth() // 2 - (WIDTH + 2) // 2
-Y = WINDOW.winfo_screenheight() // 2 - HEIGHT // 2
-WINDOW.geometry(f'{WIDTH}x{HEIGHT}+{X}+{Y}')
+try:
+    WINDOW = Tk()
+    WINDOW['bg'] = '#1e1e1e'
+    WINDOW.state(newstate='iconic')
+    WINDOW.config(borderwidth=0)
+    WINDOW.title("Area de Transferência -- beta 1.0")
+    WINDOW.resizable(width=False, height=False)
+    WINDOW.wm_attributes('-topmost' , True)
+    try:
+        WINDOW.call('wm', 'iconphoto', WINDOW._w, PhotoImage(file='icon/transfer.png'))
+    except TclError:
+        messagebox.showerror('Image Error', "A imagem 'transfer.png' não pode ser encontrada no\n"
+                             "Local 'icon/transfer.png' ")
+        WINDOW.destroy()
+    WINDOW.protocol("WM_DELETE_WINDOW", new_event_delete)
+    HEIGHT = int(500)
+    WIDTH = int(400)
+    X = WINDOW.winfo_screenwidth() // 2 - (WIDTH + 2) // 2
+    Y = WINDOW.winfo_screenheight() // 2 - HEIGHT // 2
+    WINDOW.geometry(f'{WIDTH}x{HEIGHT}+{X}+{Y}')
 
-canvas = tk.Canvas(WINDOW, bg='#1e1e1e')
-canvas.grid(row=0, column=0, sticky='nwes')
+    canvas = Canvas(WINDOW, bg='#1e1e1e')
+    canvas.grid(row=0, column=0, sticky='nwes')
 
-scroll = ttk_scrollbar(WINDOW, orient="vertical", command=canvas.yview)
-scroll.grid(row=0, column=1, sticky='ns')
-canvas.configure(yscrollcommand=scroll.set)
+    scroll = ttk_scrollbar(WINDOW, orient="vertical", command=canvas.yview)
+    scroll.grid(row=0, column=1, sticky='ns')
+    canvas.configure(yscrollcommand=scroll.set)
 
-frame_main = tk.Frame(canvas, bg='#1e1e1e')
-canvas.create_window((0, 0), window=frame_main, anchor='nw')
+    frame_main = Frame(canvas, bg='#1e1e1e')
+    canvas.create_window((0, 0), window=frame_main, anchor='nw')
 
-WINDOW.grid_rowconfigure(0, weight=1)
+    WINDOW.grid_rowconfigure(0, weight=1)
 
-ident = 0  # variavel de controle para a criação de card
-element_func()
-canvas['scrollregion'] = (0,0,0, 500)
+    ident = 0  # variavel de controle para a criação de card
+    element_func()
+    canvas['scrollregion'] = (0,0,0, 500)
 
-Thread(target=config_window_state).start()
-WINDOW.mainloop()
+    Thread(target=config_window_state).start()
+    WINDOW.mainloop()
+except TclError:
+    pass
