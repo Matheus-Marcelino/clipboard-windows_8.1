@@ -8,3 +8,6 @@ venv/
 
 # gitignore
 .gitignore
+.ico
+.png
+/icon

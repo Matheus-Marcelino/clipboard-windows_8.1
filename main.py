@@ -6,8 +6,6 @@ from threading import Thread
 from keyboard import add_hotkey, wait
 delete()
 
-ident = 0  # variavel de controle para a criação de card
-
 
 def config_window_state() -> None:
     def state() -> None:
@@ -78,6 +76,7 @@ WINDOW.config(borderwidth=0)
 WINDOW.title("Area de Transferência -- beta 1.0")
 WINDOW.resizable(width=False, height=False)
 WINDOW.wm_attributes('-topmost' , True)
+WINDOW.call('wm', 'iconphoto', WINDOW._w, tk.PhotoImage(file='trasnfer.png'))
 WINDOW.protocol("WM_DELETE_WINDOW", new_event_delete)
 WINDOW.state(newstate='iconic')
 HEIGHT = int(500)
@@ -98,6 +97,7 @@ canvas.create_window((0, 0), window=frame_main, anchor='nw')
 
 WINDOW.grid_rowconfigure(0, weight=1)
 
+ident = 0  # variavel de controle para a criação de card
 element_func()
 canvas['scrollregion'] = (0,0,0, 500)
 
