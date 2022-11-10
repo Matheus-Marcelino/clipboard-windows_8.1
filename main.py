@@ -17,25 +17,23 @@ def config_window_state() -> None:
     wait()
 
 
-def element_func() -> None:
+def element_create() -> None:
     global ident
 
     def limpar() -> None:
-        global ident
+        global ident, line, line_button
 
         copy.clear()
-        ident = 0
+        ident, line, line_button = 0, 1, 2
+
         for widget in frame_main.winfo_children():
-            widget.destroy()
+                widget.destroy()
 
     def create_Card() -> None: 
         global line, line_button
 
-        def copiar(marcador) -> None:
-            copy_ctrl_c(marcador)
-
-        def botao_copy(marcador) -> None:
-            Button(frame_main, text='Copiar', background='#2e2e2e', fg='white', command = lambda: copiar(marcador),
+        def botao_copy(marcador: str) -> None:
+            Button(frame_main, text='Copiar', background='#2e2e2e', fg='white', command = lambda: copy_ctrl_c(marcador),
                    pady=1, bg='#2d2d2d', anchor='n', width=44).grid(column=0, row=line_button, sticky='s')
 
         for _ in range(1):
@@ -59,7 +57,7 @@ def element_func() -> None:
         ident += 1
         create_Card()
 
-    frame_main.after(2000, element_func)
+    frame_main.after(2000, element_create)
 
 
 def new_event_delete() -> None:
@@ -99,7 +97,7 @@ try:
     WINDOW.grid_rowconfigure(0, weight=1)
 
     ident, line, line_button = 0, 1, 2  # variavel de controle para a criação de card
-    element_func()
+    element_create()
     canvas['scrollregion'] = (0,0,0, 500)
 
     Thread(target=config_window_state).start()
