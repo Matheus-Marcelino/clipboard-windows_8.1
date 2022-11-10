@@ -7,11 +7,6 @@ from clipboard import paste, copy
 
 lista_ctrl_c = []
 
-
-def copy_ctrl_c(phrase: str) -> None:
-    copy(phrase)
-
-
 def get_ctrl_c() -> (list | None):
     global lista_ctrl_c
 
@@ -24,6 +19,14 @@ def get_ctrl_c() -> (list | None):
         pass
     else:
         return lista_ctrl_c
+
+
+def copy_ctrl_c(phrase: str) -> None:
+    copy(phrase)
+
+
+def clear_ctrl_c() -> None:
+    pass
 
 
 def delete() -> None:

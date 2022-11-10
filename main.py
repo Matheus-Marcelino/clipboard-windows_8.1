@@ -1,7 +1,7 @@
 # Feito por -- Matheus Marcelino Lopes - DevMarcelino
 # Finalizado: 10/11/22 ás 18:01
 
-from tkinter import Tk, TclError, messagebox, Frame, Canvas, Button, Text, PhotoImage
+from tkinter import Tk, TclError, messagebox, Frame, Canvas, Button, Text, PhotoImage, Label
 from tkinter.ttk import Scrollbar as ttk_scrollbar
 from get import get_ctrl_c, copy_ctrl_c, delete
 from threading import Thread
@@ -30,31 +30,35 @@ def element_create() -> None:
         ident, line, line_button = 0, 1, 2
 
         for widget in frame_main.winfo_children():
-                widget.destroy()
+            widget.destroy()
 
-    def create_Card() -> None: 
+    def create_Card() -> None:
         global line, line_button
 
         def botao_copy(marcador: str) -> None:
-            Button(frame_main, text='Copiar', background='#2e2e2e', fg='white', command = lambda: copy_ctrl_c(marcador),
+            Button(frame_main, text='Copiar', background='#2e2e2e', fg='white', command=lambda: copy_ctrl_c(marcador),
                    pady=1, bg='#2d2d2d', anchor='n', width=44).grid(column=0, row=line_button, sticky='s')
 
         for _ in range(1):
-            card = Text(frame_main, width=40, height=6, autoseparators=True, blockcursor=True, bg='#424242', fg='white')
+            card = Text(frame_main, width=40, height=6, autoseparators=True,
+                        blockcursor=True, bg='#424242', fg='white')
             card.grid(column=0, row=line, padx=WIDTH/17, pady=3)
             card.insert(index='end', chars=copy[-1])
             botao_copy(copy[-1])
-            card.configure(selectbackground=card.cget('bg'), inactiveselectbackground=card.cget('bg'), state='disabled')
+            card.configure(selectbackground=card.cget(
+                'bg'), inactiveselectbackground=card.cget('bg'), state='disabled')
             frame_main.update_idletasks()
             line += 2
             line_button += 2
 
-        canvas['scrollregion'] = (0,0,0, frame_main.winfo_reqheight())
+        canvas['scrollregion'] = (0, 0, 0, frame_main.winfo_reqheight())
 
     copy, tamanho = get_ctrl_c(), len(get_ctrl_c())
+
     if len(copy) != 0:
-        Button(frame_main, text='Limpar', fg='white', command= limpar,
+        Button(frame_main, text='Limpar', fg='white', command=limpar,
                bg='#2d2d2d', anchor='n', width=44).grid(column=0, row=0, sticky='n', pady=6)
+        message.destroy()
 
     if ident != tamanho:
         ident += 1
@@ -78,9 +82,10 @@ try:
     WINDOW.state(newstate='iconic')
     WINDOW.title("Area de Transferência -- beta 1.0")
     WINDOW.resizable(width=False, height=False)
-    WINDOW.wm_attributes('-topmost' , True)
+    WINDOW.wm_attributes('-topmost', True)
     try:
-        WINDOW.call('wm', 'iconphoto', WINDOW._w, PhotoImage(file='icon/transfer.png'))
+        WINDOW.call('wm', 'iconphoto', WINDOW._w,
+                    PhotoImage(file='icon/transfer.png'))
     except TclError:
         messagebox.showerror('Image Not Found Error', "A imagem 'transfer.png' não pode ser encontrada no\n"
                              "Local 'icon/transfer.png' ")
@@ -99,9 +104,13 @@ try:
 
     WINDOW.grid_rowconfigure(0, weight=1)
 
+    message = Label(frame_main, text='Espeando você copiar algo :)', bg='#1e1e1e',
+                    fg='white', font="Bahnschrift 15")
+    message.grid(column=0, row=0, sticky='nwes')
+
     ident, line, line_button = 0, 1, 2  # variavel de controle para a criação de card
     element_create()
-    canvas['scrollregion'] = (0,0,0, 500)
+    canvas['scrollregion'] = (0, 0, 0, 500)
 
     Thread(target=config_window_state).start()
     WINDOW.mainloop()
