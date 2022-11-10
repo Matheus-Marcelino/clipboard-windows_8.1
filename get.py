@@ -26,7 +26,9 @@ def copy_ctrl_c(phrase: str) -> None:
 
 
 def clear_ctrl_c() -> None:
-    pass
+    global lista_ctrl_c
+    
+    lista_ctrl_c.clear()
 
 
 def delete() -> None:

@@ -3,7 +3,7 @@
 
 from tkinter import Tk, TclError, messagebox, Frame, Canvas, Button, Text, PhotoImage, Label
 from tkinter.ttk import Scrollbar as ttk_scrollbar
-from get import get_ctrl_c, copy_ctrl_c, delete
+from get import get_ctrl_c, copy_ctrl_c, clear_ctrl_c, delete
 from threading import Thread
 from keyboard import add_hotkey, wait
 delete()
@@ -26,7 +26,7 @@ def element_create() -> None:
     def limpar() -> None:
         global ident, line, line_button
 
-        copy.clear()
+        clear_ctrl_c()
         ident, line, line_button = 0, 1, 2
 
         for widget in frame_main.winfo_children():
