@@ -1,3 +1,6 @@
+# Feito por -- Matheus Marcelino Lopes - DevMarcelino
+# Finalizado: 10/11/22 ás 18:01
+
 from os import path
 from shutil import rmtree
 from clipboard import paste, copy
