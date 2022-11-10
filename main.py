@@ -52,10 +52,10 @@ def element_func() -> None:
         canvas['scrollregion'] = (0,0,0, frame_main.winfo_reqheight())
 
     copy, tamanho = get_ctrl_c(), len(get_ctrl_c())
-
-    botao_limpar = Button(frame_main, text='Limpar', fg='white', command= limpar,
-                      bg='#2d2d2d', anchor='n', width=44)    
-    botao_limpar.grid(column=0, row=0, sticky='n', pady=6)
+    if len(copy) != 0:
+        botao_limpar = Button(frame_main, text='Limpar', fg='white', command= limpar,
+                        bg='#2d2d2d', anchor='n', width=44)    
+        botao_limpar.grid(column=0, row=0, sticky='n', pady=6)
 
     
     if ident != tamanho:
