@@ -5,7 +5,7 @@ from clipboard import paste, copy
 lista_ctrl_c = []
 
 
-def copy_ctrl_c(phrase: str) -> str:
+def copy_ctrl_c(phrase: str) -> None:
     copy(phrase)
 
 

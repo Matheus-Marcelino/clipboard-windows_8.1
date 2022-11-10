@@ -22,33 +22,50 @@ def config_window_state() -> None:
 
 def Card_func() -> None:
     global ident
-    
+
+    def limpar() -> None:
+        global ident
+        copy.clear()
+        print(copy)
+        ident = 0
+        for widget in frame_main.winfo_children():
+            widget.destroy()
+
     def create_Card() -> None: 
-        def copiar() -> None:
-            copy_ctrl_c()
-        
-        line_button = 1
-        line = 0
-        for frase in copy:
-            card = tk.Text(frame_text, width=40, height=6, autoseparators=True, blockcursor=True, bg='#424242')
+        def copiar(marcador: int) -> None:
+            copy_ctrl_c(copy[marcador])
+
+        def botao_copy(marcador: int) -> None:
+            botao = tk.Button(frame_main, text='Copiar', fg='white', command = lambda: copiar(marcador), pady=1,
+                      bg='#2d2d2d', anchor='n', width=44)    
+            botao.grid(column=0, row=line_button, sticky='s')
+
+        line, line_button = 1, 2
+
+        for marcador in range(0, len(copy)):
+            card = tk.Text(frame_main, width=40, height=6, autoseparators=True, blockcursor=True, bg='#424242', fg='white')
             card.grid(column=0, row=line, padx=WIDTH/17, pady=3)
-            card.insert(index='end', chars=frase)
+            card.insert(index='end', chars=copy[marcador])
+            botao_copy(marcador)
             card.configure(selectbackground=card.cget('bg'), inactiveselectbackground=card.cget('bg'), state='disabled')
-            botao = tk.Button(frame_text, text='Copiar', fg='white', command=copiar, pady=1,
-                      bg='#2d2d2d', anchor='n', width=44).grid(column=0, row=line_button, sticky='s')
-            frame_text.update_idletasks()
+            frame_main.update_idletasks()
             line += 2
             line_button += 2
-                
-        canvas['scrollregion'] = (0,0,0, frame_text.winfo_reqheight())
+
+        canvas['scrollregion'] = (0,0,0, frame_main.winfo_reqheight())
 
     copy, tamanho = get_ctrl_c(), len(get_ctrl_c())
 
+    botao_limpar = tk.Button(frame_main, text='Limpar', fg='white', command= limpar,
+                      bg='#2d2d2d', anchor='n', width=44)    
+    botao_limpar.grid(column=0, row=0, sticky='n', pady=6)
+
+    
     if ident != tamanho:
         ident += 1
         create_Card()
-    
-    frame_text.after(2000, Card_func)
+
+    frame_main.after(2000, Card_func)
 
 
 def new_event_delete() -> None:
@@ -70,15 +87,15 @@ X = WINDOW.winfo_screenwidth() // 2 - (WIDTH + 2) // 2
 Y = WINDOW.winfo_screenheight() // 2 - HEIGHT // 2
 WINDOW.geometry(f'{WIDTH}x{HEIGHT}+{X}+{Y}')
 
-canvas = tk.Canvas(WINDOW, bg='#1e1e1e')
+canvas = tk.Canvas(WINDOW, bg='blue')
 canvas.grid(row=0, column=0, sticky='nwes')
 
 scroll = ttk_scrollbar(WINDOW, orient="vertical", command=canvas.yview)
 scroll.grid(row=0, column=1, sticky='ns')
 canvas.configure(yscrollcommand=scroll.set)
 
-frame_text = tk.Frame(canvas, bg='#1e1e1e')
-canvas.create_window((0, 0), window=frame_text, anchor='nw')
+frame_main = tk.Frame(canvas, bg='grey')
+canvas.create_window((0, 0), window=frame_main, anchor='nw')
 
 WINDOW.grid_rowconfigure(0, weight=1)
 WINDOW.grid_columnconfigure(0, weight=1)
