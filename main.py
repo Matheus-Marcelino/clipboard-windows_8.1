@@ -21,7 +21,7 @@ def config_window_state() -> None:
 
 
 def element_create() -> None:
-    global ident
+    global ident, message
 
     def limpar() -> None:
         global ident, line, line_button
@@ -38,7 +38,7 @@ def element_create() -> None:
         def botao_copy(marcador: str) -> None:
             Button(frame_main, text='Copiar', background='#2e2e2e', fg='white', command=lambda: copy_ctrl_c(marcador),
                    pady=1, bg='#2d2d2d', anchor='n', width=44).grid(column=0, row=line_button, sticky='s')
-        
+
         # criando um card
         for _ in range(1):
             card = Text(frame_main, width=40, height=6, autoseparators=True,
@@ -60,6 +60,10 @@ def element_create() -> None:
         Button(frame_main, text='Limpar', fg='white', command=limpar,
                bg='#2d2d2d', anchor='n', width=44).grid(column=0, row=0, sticky='n', pady=6)
         message.destroy()
+    else:
+        message = Label(frame_main, text='Esperando você copiar algo :)', bg='#1e1e1e',
+                    fg='#2e2e2e', font="Bahnschrift 15")
+        message.grid(column=0, row=0, sticky='nwes', padx=WIDTH/7, pady=HEIGHT/2.2)
 
     if ident != tamanho:
         ident += 1
