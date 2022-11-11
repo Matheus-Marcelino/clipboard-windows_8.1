@@ -89,7 +89,7 @@ try:
     X = WINDOW.winfo_screenwidth() // 2 - (WIDTH + 2) // 2
     Y = WINDOW.winfo_screenheight() // 2 - HEIGHT // 2
     WINDOW.geometry(f'{WIDTH}x{HEIGHT}+{X}+{Y}')
-    
+
     WINDOW.state(newstate='iconic')
     WINDOW.title("Area de Transferência -- beta 3.0")
     WINDOW.resizable(width=False, height=False)
