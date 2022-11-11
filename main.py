@@ -52,6 +52,9 @@ def element_create() -> None:
             line += 2
             line_button += 2
 
+        if message.winfo_exists() == 1:
+            limpar()
+
         canvas['scrollregion'] = (0, 0, 0, frame_main.winfo_reqheight())
 
     copy, tamanho = get_ctrl_c(), len(get_ctrl_c())
@@ -59,7 +62,6 @@ def element_create() -> None:
     if len(copy) != 0:
         Button(frame_main, text='Limpar', fg='white', command=limpar,
                bg='#2d2d2d', anchor='n', width=44).grid(column=0, row=0, sticky='n', pady=6)
-        message.destroy()
     else:
         message = Label(frame_main, text='Esperando você copiar algo :)', bg='#1e1e1e',
                     fg='#2e2e2e', font="Bahnschrift 15")
