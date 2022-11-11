@@ -91,7 +91,7 @@ try:
     WINDOW.geometry(f'{WIDTH}x{HEIGHT}+{X}+{Y}')
     
     WINDOW.state(newstate='iconic')
-    WINDOW.title("Area de Transferência -- beta 1.0")
+    WINDOW.title("Area de Transferência -- beta 3.0")
     WINDOW.resizable(width=False, height=False)
     WINDOW.wm_attributes('-topmost', True)
     try:
