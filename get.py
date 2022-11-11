@@ -15,9 +15,7 @@ def get_ctrl_c() -> (list | None):
     if not ctrl_c in token_list_ctrl_c and ctrl_c != '':
         token_list_ctrl_c.append(ctrl_c)
 
-    if token_list_ctrl_c == None:
-        pass
-    else:
+    if token_list_ctrl_c != None:
         return token_list_ctrl_c
 
 
