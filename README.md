@@ -4,11 +4,9 @@
 o arquvio se encontra em estado de:<b> Finalizado<b>
 
 <h1>criado por -- Matheus Marcelino Lopes - DevMarcelino<h1>
-----
   
 -- main --
 Criação da tela, dos cards, botões e atualização da tela
-----
 
 -- get --
 Entra na áea de transferêcia: 
