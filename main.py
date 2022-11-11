@@ -38,7 +38,8 @@ def element_create() -> None:
         def botao_copy(marcador: str) -> None:
             Button(frame_main, text='Copiar', background='#2e2e2e', fg='white', command=lambda: copy_ctrl_c(marcador),
                    pady=1, bg='#2d2d2d', anchor='n', width=44).grid(column=0, row=line_button, sticky='s')
-
+        
+        # criando um card
         for _ in range(1):
             card = Text(frame_main, width=40, height=6, autoseparators=True,
                         blockcursor=True, bg='#424242', fg='white')
@@ -74,11 +75,13 @@ def new_event_delete() -> None:
 try:
     WINDOW = Tk()
     WINDOW['bg'] = '#1e1e1e'
+    # Centralizando a tela ao iniciar
     HEIGHT = int(500)
     WIDTH = int(400)
     X = WINDOW.winfo_screenwidth() // 2 - (WIDTH + 2) // 2
     Y = WINDOW.winfo_screenheight() // 2 - HEIGHT // 2
     WINDOW.geometry(f'{WIDTH}x{HEIGHT}+{X}+{Y}')
+    
     WINDOW.state(newstate='iconic')
     WINDOW.title("Area de Transferência -- beta 1.0")
     WINDOW.resizable(width=False, height=False)
