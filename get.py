@@ -5,7 +5,7 @@ from os import path
 from shutil import rmtree
 from clipboard import paste, copy
 
-token_list_ctrl_c = ''
+token_list_ctrl_c = []
 
 def get_ctrl_c() -> (list | None):
     global token_list_ctrl_c
@@ -21,8 +21,8 @@ def get_ctrl_c() -> (list | None):
         return token_list_ctrl_c
 
 
-def copy_ctrl_c(phrase: str) -> None:
-    copy(phrase)
+def copy_ctrl_c(text: str) -> None:
+    copy(text)
 
 
 def clear_ctrl_c() -> None:
