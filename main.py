@@ -39,7 +39,7 @@ def element_create() -> None:
             Button(frame_main, text='Copiar', background='#2e2e2e', fg='white', command=lambda: copy_ctrl_c(marcador),
                    pady=1, bg='#2d2d2d', anchor='n', width=44).grid(column=0, row=line_button, sticky='s')
 
-        # criando um card
+        # criando um card e seu botão associado
         for _ in range(1):
             card = Text(frame_main, width=40, height=6, autoseparators=True,
                         blockcursor=True, bg='#424242', fg='white')
@@ -52,9 +52,11 @@ def element_create() -> None:
             line += 2
             line_button += 2
 
+        # exlucindo a mensagem caso ela não saia
         if message.winfo_exists() == 1:
             limpar()
 
+        #atualizando sempre a região do scroll
         canvas['scrollregion'] = (0, 0, 0, frame_main.winfo_reqheight())
 
     copy, tamanho = get_ctrl_c(), len(get_ctrl_c())
@@ -96,8 +98,8 @@ try:
         WINDOW.call('wm', 'iconphoto', WINDOW._w,
                     PhotoImage(file='icon/transfer.png'))
     except TclError:
-        messagebox.showerror('Image Not Found Error', "A imagem 'transfer.png' não pode ser encontrada no\n"
-                             "Local 'icon/transfer.png' ")
+        messagebox.showerror('Image Not Found Error', "A imagem 'transfer.png' "
+                             "não pode ser encontrada no\nLocal 'icon/transfer.png' ")
         WINDOW.destroy()
     WINDOW.protocol("WM_DELETE_WINDOW", new_event_delete)
 
