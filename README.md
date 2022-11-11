@@ -6,7 +6,7 @@ o arquvio se encontra em estado de:<b> Finalizado<b>
 -- main --
 Criação da tela, dos cards, botões e atualização da tela
 
--
+--
 
 -- get --
 Entra na áea de transferêcia: 
