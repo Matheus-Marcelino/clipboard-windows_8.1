@@ -123,6 +123,7 @@ try:
     element_create()
     canvas['scrollregion'] = (0, 0, 0, 500)
 
+    Thread(target=element_create).start()
     Thread(target=config_window_state).start()
     WINDOW.mainloop()
 except TclError:
